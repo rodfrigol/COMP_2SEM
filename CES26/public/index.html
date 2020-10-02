@@ -1,0 +1,39 @@
+<html>
+    <body>
+        <h1>Arquivo estático sendo exibido!</h1>
+        <br />
+        <br />
+        <h2>Faça upload de um arquivo:</h2>
+        <form action="/file_upload" method="POST" enctype="multipart/form-data">
+            <input type='file' name='file' size="50">
+            <br />
+            <input type="submit" value="Upload">
+        </form>
+        <br />
+        <br />
+        <h2>Envie os dados do formulário para processamento utilizando GET</h2>
+        <form action="/process_get" method="GET">
+            First Name: <input type="text" name="first_name"> <br>
+
+            Last Name: <input type="text" name="last_name">
+            <input type="submit" value="Submit">
+        </form>
+        <br />
+        <br />
+        <h2>Obtenha dados JSON do servidor</h2>
+        <button onclick='receberDados()'>GO!</button>
+        <div id='paragrafo'></div>
+    </body>
+    <script>
+        function receberDados(){
+            var xml = new XMLHttpRequest()
+            xml.open('GET', '/json_info')
+            xml.onreadystatechange = function(){
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("paragrafo").innerHTML = this.responseText;
+                }
+            }
+            xml.send()
+        }
+    </script>
+</html>
