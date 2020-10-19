@@ -1,0 +1,7 @@
+digraph {
+	rankdir=LR
+	node [shape=doublecircle]
+	1
+	node [shape=circle]
+	1 -> 2 [label=a]
+}

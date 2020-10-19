@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Série 2</title>
+    </head>
+
+    <body>
+        <canvas id="myCanvas" width="500" height="500" style="border:1px solid #d3d3d3;"></canvas>
+        <button id='button' onclick="changeSound()"><img src='img/off.png' width="20px" height="20px" id='off' style="display: none;"><img src='img/on.png' width="20px" height="20px" id='on'></button>
+    </body>
+
+    <script>
+        var canvas = document.getElementById("myCanvas"), context = canvas.getContext('2d'),
+            aviao = new Image(), missil = new Image(), explosao = new Image();
+        var aviaoX = 0, aviaoY = 0, aviaoA = 0;
+        var animacao = false;
+        var audioON = true;
+
+        aviao.src = 'img/aviao.png';
+        aviao.onload = function(){
+            context.drawImage(aviao, 50, 50, 50, 50);
+        }
+
+        missil.src = 'img/missil.png';
+        missil.onload = function(){
+            context.drawImage(missil, 0, 0, 50, 50);
+        }
+
+        explosao.src = 'img/explosao.png';
+
+        canvas.addEventListener("mousemove", function(e){
+            if (!animacao){
+                var xPos = e.clientX;
+                var yPos = e.clientY==0?1:e.clientY;
+                aviaoX = xPos;
+                aviaoY = yPos;
+
+                context.clearRect(0,0,canvas.width,canvas.height);
+                context.drawImage(aviao, xPos, yPos, 50, 50);
+                
+                
+                var angulo = Math.atan(yPos/xPos)
+                aviaoA = angulo
+                context.save();
+                context.translate(25, 25);
+                context.rotate(angulo);
+                context.translate(-25, -25);
+                context.drawImage(missil, 0, 0, 50, 50);
+                context.restore();
+            }
+        }, false);
+
+        canvas.addEventListener("click", function(){
+            if (! animacao){
+
+                if(audioON){
+                    var m = new Audio("sound/missil.mp3");
+                    m.play();
+                }
+
+                animacao = true
+
+                context.clearRect(0,0,canvas.width,canvas.height);
+
+                var interval = setInterval(function() {
+                    var x = 0;
+
+                    return function () {
+                        context.clearRect(0,0,canvas.width,canvas.height);
+                        context.drawImage(aviao, aviaoX, aviaoY, 50, 50);
+
+                        context.rotate(aviaoA);
+                        context.drawImage(missil, x, -25, 50, 50);
+                        context.rotate(-aviaoA);
+
+                        x += aviaoX/(30*Math.cos(aviaoA));
+
+                    };
+                }(), 1000/30);
+                
+                setTimeout(function(){
+                    clearInterval(interval);
+                    animacao = false
+                    context.clearRect(0,0,canvas.width,canvas.height);
+                    context.drawImage(explosao, aviaoX, aviaoY, 50, 50);
+                    if (audioON){
+                        var expl = new Audio("sound/explosao.mp3");
+                        expl.play();
+                    }
+                }, 1000)
+                
+            }
+        }, false);
+
+        function changeSound(){
+            var on = document.getElementById('on')
+            var off = document.getElementById('off')
+
+            if (audioON){
+                audioON = false
+                on.style.display = 'none'
+                off.style.display = 'block'
+            }else{
+                audioON = true
+                on.style.display = 'block'
+                off.style.display = 'none'
+            }
+        }
+
+    </script>
+
+</html>

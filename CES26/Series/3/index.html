@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <style>
+            .add{
+                color:lightgreen;
+            }
+            .delete{
+                color: red;
+            }
+            .hide{
+                display: none;
+            }
+            .elemento{
+                cursor: pointer;
+            }
+            .selected{
+                color: blue;
+            }
+            .laranja{
+                color: orange;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <ul>
+            <li><button class="add" onclick="adicionarFilho(event)">+</button></li>
+        </ul>
+
+
+        <script>
+            function adicionarFilho(e){
+                var html = `<ul>
+                                <li>
+                                    <span onclick='hideShow(event)' class='elemento'>Elemento</span>
+                                    <span class='hide buttons'>
+                                        <button class='add' onclick='adicionarFilho(event)'>+</button>
+                                        <button class='delete' onclick='removerElemento(event)'>x</button>
+                                        <button class='laranja' onclick='laranja(event)'>laranja</button>
+                                    </span>
+                                </li>
+                            </ul>`
+                $(e.target).parent().parent().append(html)
+            }
+            function removerElemento(e){
+                $(e.target).parent().parent().parent().remove()
+            }
+            function hideShow(e){
+                $(".elemento").each(function(){
+                    $(this).removeClass("selected")
+                    $(this).removeClass("laranja")
+                })
+                $(".buttons").each(function(){
+                    $(this).addClass("hide")
+                })
+                $(e.target).addClass("selected")
+                $(e.target).next().removeClass("hide")
+            }
+            function laranja(e){
+                $(e.target).parent().prev().addClass("laranja")
+            }
+        </script>
+
+    </body>
+
+</html>
