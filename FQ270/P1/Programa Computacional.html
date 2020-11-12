@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="src/Chart.min.js"></script>
+        <link rel="stylesheet" href="src/index.css">
+    </head>
+    <body>
+        <div class="box">
+            <h2>Selecione a equação:</h2>
+            <select onchange='changeSelect(this)' id='equacoes'></select>
+        </div>
+
+        <div class="box">
+            <h2>Forneça os valores das constantes:</h2>
+            <div id='constantes'></div>
+        </div>
+
+        <div class='box'>
+            <button onclick='obterIsoterma()'>Obter isoterma de adsorção</button>
+            <div id='errormsg'></div>
+        </div>
+
+        <canvas id="grafico"></canvas>
+
+        <script src='src/index.js'></script>
+    </body>
+</html>
