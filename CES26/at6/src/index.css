@@ -1,0 +1,39 @@
+#root{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20vh;
+}
+
+.container{
+    border: 1px solid;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 5px 10px lightgray;
+}
+
+#visor{
+    text-align: right;
+    margin: 4px 2px;
+    padding: 15px 10px 15px 32px;
+    background-color: lightgreen;
+    font-size: 28px;
+}
+
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 100px;
+}
+
+.lastVal{
+    font-size: 9px;
+}
